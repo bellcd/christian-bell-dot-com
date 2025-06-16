@@ -1,0 +1,158 @@
+body {
+  margin: 0;
+  font-family: "Muli", sans-serif;
+}
+
+#wrapper {
+  height: 100vh;
+}
+
+h2 {
+  margin: 1rem;
+}
+
+/* COLORS */
+:root {
+  --purple-dark: rgba(77, 48, 140, 0.5);
+  --purple-medium: rgba(103, 72, 217, 0.5);
+  --purple-light: rgba(122, 95, 217, 0.5);
+  --green-light: rgba(2, 115, 104, 0.2);
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: stretch;
+}
+
+/* PANELS */
+.panel {
+  transition: all 1s;
+  flex: 1 1 auto;
+
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+
+  background-size: cover;
+}
+
+.active-panel {
+  /*   setting a flex-grow value that's larger than the defaults for the other panels that do not have the class .active-panel ensures that the .active-panel divs take up more height (mobile) / width (desktop) than those other panels. */
+
+  flex: 5 1 auto;
+
+  /*   flex-basis: 600px; */
+  /*   It's also possible to set a fixed flex-basis value, but I found the spacing on resize to be less crowded when using a flex-basis of auto. */
+
+  /*   You would, however, definitely want to use flex-basis here (and not width) - because when the media query kicks in and the main axis of the flexbox flips from horizontal to vertical, you want the dimension that the div expands in to change alongside it. Flex-basis does this, width will not. */
+}
+
+#one {
+  background-image: linear-gradient(
+      180deg,
+      var(--purple-medium),
+      var(--purple-dark)
+    ),
+    url(https://images.unsplash.com/photo-1579911092621-fd9212a786c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+}
+
+#two {
+  background-image: linear-gradient(
+      180deg,
+      var(--purple-dark),
+      var(--purple-light)
+    ),
+    url(https://images.unsplash.com/photo-1577186606264-8bc8d1fdf9e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+}
+
+#three {
+  background-image: linear-gradient(
+      180deg,
+      var(--purple-light),
+      var(--purple-medium)
+    ),
+    url(https://images.unsplash.com/photo-1579783616444-4604fd2fb8f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80);
+}
+
+/* The wings are sibling divs to the <div class="card">s, inside an additional flexbox on each panel. They are relatively positioned offscreen, and that relative positioning offset changes on hover */
+/* I went with this solution because keeping the wings part of the normal document flow (ie, instead of, say, absolute positioning them) allows them to receive the width / height adjustments from the .active-panel class. */
+
+/* WINGS */
+.container-wings {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  /*   Hides the wings when they're not needed */
+  overflow: hidden;
+}
+
+.wings {
+  flex: 0 0 25%;
+  transition: all 0.5s;
+  position: relative;
+  background-color: var(--green-light);
+}
+
+/* CARDS */
+.card {
+  align-self: center;
+  max-width: 400px;
+  width: 50%;
+  text-align: center;
+  font-size: 1.6rem;
+  color: white;
+  font-weight: 200;
+  font-style: italic;
+}
+
+/* FOOTER */
+.site-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 12px 0 10px 0;
+  z-index: 1000;
+}
+
+/* PROFILE IMAGE */
+.profile-img-fixed {
+  position: fixed;
+  top: 32px;
+  left: 32px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(42, 42, 114, 0.13);
+  border: 3px solid #fff;
+  z-index: 1100;
+}
+
+@media (max-width: 700px) {
+  .profile-img-fixed {
+    top: 12px;
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+  }
+}
+
+/* TABLET & DESKTOP STYLES */
+@media (min-width: 600px) {
+  #container {
+    flex-direction: row;
+  }
+
+  .container-wings {
+    flex-direction: column;
+  }
+}
